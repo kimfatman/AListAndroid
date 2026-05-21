@@ -1,1 +1,13 @@
-app/src/main/assets/alist/* filter=lfs diff=lfs merge=lfs -text
+# Force LF for shell scripts (critical for Linux CI)
+* text=auto eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf
+gradlew text eol=lf
+gradlew.bat text eol=crlf
+
+# Binary files
+*.png binary
+*.jar binary
+*.so binary
+*.aab binary
+*.apk binary
