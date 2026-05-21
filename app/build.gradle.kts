@@ -22,13 +22,11 @@ android {
 
     signingConfigs {
         create("release") {
-            val ksFile = System.getenv("KEYSTORE_FILE")
-            if (ksFile != null && ksFile.isNotEmpty()) {
-                storeFile = file(ksFile)
-                storePassword = System.getenv("KEYSTORE_PASSWORD")
-                keyAlias = System.getenv("KEY_ALIAS")
-                keyPassword = System.getenv("KEY_PASSWORD")
-            }
+            val ksFile = System.getenv("KEYSTORE_FILE") ?: "release.jks"
+            storeFile = file(ksFile)
+            storePassword = System.getenv("KEYSTORE_PASSWORD") ?: "alist123"
+            keyAlias = System.getenv("KEY_ALIAS") ?: "alist"
+            keyPassword = System.getenv("KEY_PASSWORD") ?: "alist123"
         }
     }
 
@@ -40,10 +38,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            val ksFile = System.getenv("KEYSTORE_FILE")
-            if (ksFile != null && ksFile.isNotEmpty()) {
-                signingConfig = signingConfigs.getByName("release")
-            }
+            signingConfig = signingConfigs.getByName("release")
         }
         debug {
             isMinifyEnabled = false
@@ -62,6 +57,10 @@ android {
 
     buildFeatures {
         viewBinding = true
+    }
+
+    androidResources {
+        noCompress += "alist"
     }
 
     packaging {
