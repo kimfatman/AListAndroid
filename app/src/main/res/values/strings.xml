@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">AList Android</string>
+    <string name="loading">Loading…</string>
+    <string name="alist_not_ready">AList is starting…</string>
+    <string name="alist_started">AList started</string>
+    <string name="alist_stopped">AList stopped</string>
+    <string name="service_channel_name">AList Service</string>
+    <string name="service_channel_description">AList background service</string>
+    <string name="notification_title">AList Running</string>
+    <string name="notification_text">AList server is running in background</string>
+    <string name="open_webview">Open AList Web UI</string>
+    <string name="stop_service">Stop Service</string>
+    <string name="service_running">Service Running</string>
+    <string name="port">5244</string>
+    <string name="server_url">http://127.0.0.1:5244</string>
+</resources>
