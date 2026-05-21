@@ -12,9 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      ANDROID_SDK_VERSION: '34'
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,7 +24,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Cache Gradle dependencies
+      - name: Cache Gradle
         uses: actions/cache@v4
         with:
           path: |
@@ -36,10 +33,10 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle-
 
-      - name: Make gradlew executable
-        run: chmod +x gradlew
+      - name: Fix line endings
+        run: sed -i 's/\r$//' gradlew gradlew.bat && chmod +x gradlew
 
-      - name: Generate signing keystore
+      - name: Generate keystore
         run: |
           keytool -genkeypair -v \
             -keystore release.jks \
@@ -64,7 +61,7 @@ jobs:
           VERSION=$(grep 'versionName' app/build.gradle.kts | sed 's/.*"\(.*\)".*/\1/')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Upload APK artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: AList-Android-v${{ steps.version.outputs.version }}
